@@ -22,11 +22,9 @@ export class PromoComponent implements OnInit {
     });
   }
 
-
-  getPromoById(id:string){
-    this.gQrService.PostById(id).subscribe(resp=> {
+  getPromoById(id:any){
+    this.gQrService.GetById(id).subscribe(resp=> {
       console.log(resp)
-      this.reclamar = false
       this.promo = resp
     })
   }
