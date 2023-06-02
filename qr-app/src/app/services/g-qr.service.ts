@@ -19,11 +19,11 @@ export class GQrService {
     return this.http.post(`${this.baseUrl}generate-qr`, body)
   }
 
-  GetById(id:any):Observable<any>{
+  GetById(id:string):Observable<any>{
     return this.http.get(`${this.baseUrl}id`)
   }
 
-  PostById(id:any):Observable<any>{
+  PostById(id:string):Observable<any>{
     return this.http.post(`${this.baseUrl}id/scan`, {})
   }
 
