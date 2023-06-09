@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { promotion } from '../interfaces/promotion.interfaces';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,11 +21,11 @@ export class GQrService {
   }
 
   GetById(id:string):Observable<any>{
-    return this.http.get(`${this.baseUrl}id`)
+    return this.http.get(`${this.baseUrl}${id}`)
   }
 
   PostById(id:string):Observable<any>{
-    return this.http.post(`${this.baseUrl}id/scan`, {})
+    return this.http.post(`${this.baseUrl}${id}/scan`, {})
   }
 
 

@@ -40,8 +40,7 @@ export class HomeComponent implements OnInit {
     this.value = 'hola'
     this.gQrService.postPromotion(body).subscribe(resp => {
       this.value = `http://localhost:4200/Promo/${resp._id}`
-      console.log(resp)
-      console.log(this.value)
+      this.formGroup.reset()
     })
   }
 }

@@ -1,4 +1,4 @@
-<div class="reclamar-container" *ngIf="reclamar && promo">
+<div class="reclamar-container" *ngIf="reclamar && promo && !linkVisited">
   <p-button label="Canjear Promoción" styleClass="p-button-rounded p-button-help" (click)="claim(promo._id)"></p-button>
 </div>
 
@@ -11,6 +11,10 @@
   <h1>{{NotexistPromo}}</h1>
 </div>
 
+
+<div class="reclamar-container" *ngIf="linkVisited">
+  <h1>Ya reclamaste la promocion una vez</h1>
+</div>
 
 
 

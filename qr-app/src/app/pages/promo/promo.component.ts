@@ -1,18 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject , OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 import { GQrService } from 'src/app/services/g-qr.service';
 
 @Component({
   selector: 'app-promo',
   templateUrl: './promo.component.html',
-  styleUrls: ['./promo.component.scss']
+  styleUrls: ['./promo.component.scss'],
+  providers: [
+    { provide: DOCUMENT, useValue: document }
+    // Otros proveedores
+  ],
 })
 export class PromoComponent implements OnInit {
   reclamar:boolean = true
   idPromo!:string
   promo:any
   NotexistPromo:any
-  constructor(private gQrService:GQrService, private ActivateRoute: ActivatedRoute, )  { }
+
+  linkVisited:boolean = false
+  constructor(private gQrService:GQrService, private ActivateRoute: ActivatedRoute,
+    @Inject(DOCUMENT) private document: Document)  { }
 
   ngOnInit(): void {
     this.ActivateRoute.params.subscribe({
@@ -21,6 +29,9 @@ export class PromoComponent implements OnInit {
         this.getPromoById(this.idPromo)
       }
     });
+
+    const linkVisited = this.checkCookieExists('linkVisited');
+    console.log(this.checkCookieExists('linkVisited'))
   }
 
   getPromoById(id:string){
@@ -38,10 +49,14 @@ export class PromoComponent implements OnInit {
 
   claim(id:string){
     this.gQrService.PostById(id).subscribe(resp=> {
-      console.log(resp)
       this.reclamar = false
       this.promo = resp
     })
+  }
+
+  checkCookieExists(cookieName: string): boolean {
+    const cookies = this.document.cookie.split(';');
+    return cookies.some(cookie => cookie.trim().startsWith(cookieName + '='));
   }
 
 }
