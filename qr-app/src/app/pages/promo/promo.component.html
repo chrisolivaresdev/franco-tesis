@@ -1,4 +1,4 @@
-<div class="reclamar-container" *ngIf="viewClaim()">
+<div class="reclamar-container" *ngIf="reclamar && promo && !linkVisited">
   <p-button label="Canjear Promoción" styleClass="p-button-rounded p-button-help" (click)="claim(promo._id)"></p-button>
 </div>
 

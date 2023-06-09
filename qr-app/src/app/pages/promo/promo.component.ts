@@ -2,7 +2,6 @@ import { Component, Inject , OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import { GQrService } from 'src/app/services/g-qr.service';
-import { promotion } from '../../interfaces/promotion.interfaces';
 
 @Component({
   selector: 'app-promo',
@@ -18,8 +17,8 @@ export class PromoComponent implements OnInit {
   idPromo!:string
   promo:any
   NotexistPromo:any
-  linkVisited!:boolean
 
+  linkVisited:boolean = false
   constructor(private gQrService:GQrService, private ActivateRoute: ActivatedRoute,
     @Inject(DOCUMENT) private document: Document)  { }
 
@@ -38,8 +37,9 @@ export class PromoComponent implements OnInit {
       next: (resp) => {
         console.log(resp)
         this.promo = resp
-        const linkVisited = this.checkCookieExists(this.promo.name);
-        console.log(linkVisited)
+
+        this.linkVisited = this.checkCookieExists(this.promo.name);
+        console.log(this.linkVisited)
       },
       error: (error) => {
         console.log(error)
@@ -65,21 +65,6 @@ export class PromoComponent implements OnInit {
     const expirationDate = new Date();
     expirationDate.setFullYear(expirationDate.getFullYear() + 1);
     this.document.cookie = cookieName + '=true; expires=' + expirationDate.toUTCString();
-  }
-
-  viewClaim(){
-    if (this.reclamar){
-        if(this.promo){
-            if(!this.linkVisited){
-              return true
-            }
-
-            return false
-        }
-        return false
-    }
-
-    return false
   }
 
 }
