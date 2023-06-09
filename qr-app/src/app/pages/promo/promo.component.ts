@@ -31,6 +31,7 @@ export class PromoComponent implements OnInit {
     });
 
     const linkVisited = this.checkCookieExists('linkVisited');
+    console.log(linkVisited)
     this.setLinkVisitedCookie()
   }
 
