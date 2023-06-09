@@ -30,8 +30,6 @@ export class PromoComponent implements OnInit {
       }
     });
 
-    const linkVisited = this.checkCookieExists('linkVisited');
-    console.log(linkVisited)
   }
 
   getPromoById(id:string){
@@ -39,6 +37,9 @@ export class PromoComponent implements OnInit {
       next: (resp) => {
         console.log(resp)
         this.promo = resp
+
+        const linkVisited = this.checkCookieExists(this.promo.name);
+        console.log(linkVisited)
       },
       error: (error) => {
         console.log(error)
