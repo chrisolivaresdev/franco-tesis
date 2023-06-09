@@ -32,7 +32,6 @@ export class PromoComponent implements OnInit {
 
     const linkVisited = this.checkCookieExists('linkVisited');
     console.log(linkVisited)
-    this.setLinkVisitedCookie()
   }
 
   getPromoById(id:string){
@@ -52,6 +51,7 @@ export class PromoComponent implements OnInit {
     this.gQrService.PostById(id).subscribe(resp=> {
       this.reclamar = false
       this.promo = resp
+      this.setLinkVisitedCookie()
     })
   }
 
