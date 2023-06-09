@@ -31,7 +31,7 @@ export class PromoComponent implements OnInit {
     });
 
     const linkVisited = this.checkCookieExists('linkVisited');
-    console.log(this.checkCookieExists('linkVisited'))
+    this.setLinkVisitedCookie()
   }
 
   getPromoById(id:string){
@@ -57,6 +57,12 @@ export class PromoComponent implements OnInit {
   checkCookieExists(cookieName: string): boolean {
     const cookies = this.document.cookie.split(';');
     return cookies.some(cookie => cookie.trim().startsWith(cookieName + '='));
+  }
+
+  setLinkVisitedCookie() {
+    const expirationDate = new Date();
+    expirationDate.setFullYear(expirationDate.getFullYear() + 1);
+    this.document.cookie = 'linkVisited=true; expires=' + expirationDate.toUTCString();
   }
 
 }
