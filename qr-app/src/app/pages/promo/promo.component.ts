@@ -18,7 +18,7 @@ export class PromoComponent implements OnInit {
   promo:any
   NotexistPromo:any
 
-  linkVisited:boolean = false
+  linkVisited:boolean
   constructor(private gQrService:GQrService, private ActivateRoute: ActivatedRoute,
     @Inject(DOCUMENT) private document: Document)  { }
 
