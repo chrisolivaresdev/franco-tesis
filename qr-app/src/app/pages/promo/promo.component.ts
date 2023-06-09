@@ -52,7 +52,7 @@ export class PromoComponent implements OnInit {
     this.gQrService.PostById(id).subscribe(resp=> {
       this.reclamar = false
       this.promo = resp
-      this.setLinkVisitedCookie()
+      this.setLinkVisitedCookie(this.promo.name)
     })
   }
 
@@ -61,10 +61,10 @@ export class PromoComponent implements OnInit {
     return cookies.some(cookie => cookie.trim().startsWith(cookieName + '='));
   }
 
-  setLinkVisitedCookie() {
+  setLinkVisitedCookie(cookieName: string) {
     const expirationDate = new Date();
     expirationDate.setFullYear(expirationDate.getFullYear() + 1);
-    this.document.cookie = 'linkVisited=true; expires=' + expirationDate.toUTCString();
+    this.document.cookie = cookieName + '=true; expires=' + expirationDate.toUTCString();
   }
 
 }
