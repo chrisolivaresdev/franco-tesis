@@ -2,6 +2,8 @@ import { Component, OnInit, VERSION } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
 import { GQrService } from 'src/app/services/g-qr.service';
+import Swal from 'sweetalert2'
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -95,10 +97,23 @@ export class HomeComponent implements OnInit {
 
   GenerarQr(){
     let body = this.formGroup.value
-    this.value = 'hola'
+    this.value='c'
     this.gQrService.postPromotion(body).subscribe(resp => {
       this.value = `http://localhost:4200/Promo/${resp._id}`
       this.resetForm()
+    }, (err)=> {
+      console.log(err.error.message)
+      Swal.fire({
+        icon: 'warning',
+        title: 'Oops...',
+        text: err.error.message,
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        }
+      })
     })
   }
 }

@@ -33,7 +33,7 @@
     </div>
   </form>
 
-  <div class="ContainerQr" *ngIf="value">
+  <div class="ContainerQr" *ngIf="value && value != 'c'">
     <ngx-qrcode
     [elementType]="elementType"
     [errorCorrectionLevel]="correctionLevel"
