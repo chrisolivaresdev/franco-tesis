@@ -42,8 +42,7 @@ export class PromoComponent implements OnInit {
         console.log(this.linkVisited)
       },
       error: (error) => {
-        console.log(error)
-        this.NotexistPromo = "No existe la promoción"
+        this.NotexistPromo = error.error.message
       }
     })
   }

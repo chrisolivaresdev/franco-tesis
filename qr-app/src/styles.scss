@@ -1,7 +1,14 @@
+@import '~animate.css/animate.css';
+
 * {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-body {
-  background: linear-gradient(-96.73deg, #f0f0f0, #a6e5fd);
-}
+
+  body {
+    background-image: url('./assets/QrApp.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+  }

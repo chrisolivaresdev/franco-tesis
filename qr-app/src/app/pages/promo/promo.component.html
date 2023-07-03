@@ -3,10 +3,11 @@
 </div>
 
 <div class="reclamar-container" *ngIf="promo && !reclamar || promo && linkVisited">
-  <h1>Muchas gracias por participar!!</h1>
-  <h1>Ya reclamaste tu promoción🔥🔥</h1>
+  <h1 class="center" *ngIf="promo.message?.msg">Muchas gracias por participar!!</h1>
+  <h1 class="center" *ngIf="promo.message?.msg">{{promo.message.msg}}</h1>
+  <h1 class="center" *ngIf="!promo.message?.msg">Ya has reclamado esta promoción</h1>
 </div>
 
 <div class="reclamar-container" *ngIf="NotexistPromo">
-  <h1>{{NotexistPromo}}</h1>
+  <h1 class="center">{{NotexistPromo}}</h1>
 </div>
