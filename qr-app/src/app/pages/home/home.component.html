@@ -16,7 +16,8 @@
 
     <div class="inputContainer animate__animated animate__swing" *ngIf="descriptionValue">
       <span class="p-float-label">
-      <p-inputNumber formControlName="quantityOfScans" pTooltip="Ingresa el numero de veces que sera posible escanear el codigoQr, por ejemplo: 7 = 7 veces."></p-inputNumber>
+      <!-- <p-inputNumber formControlName="quantityOfScans" ></p-inputNumber> -->
+      <input type="text" pInputText pattern="[0-9]+" formControlName="quantityOfScans" pTooltip="Ingresa el numero de veces que sera posible escanear el codigoQr, por ejemplo: 7 = 7 veces."/>
       <label for="inputgroup">Cantidad de escaneos</label>
     </span>
     </div>
