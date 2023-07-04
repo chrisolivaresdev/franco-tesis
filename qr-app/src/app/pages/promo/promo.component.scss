@@ -8,5 +8,19 @@
 
 .center{
   text-align: center;
-  color: #fff;
 }
+
+::ng-deep .p-card-body{
+  background: gray;
+}
+
+::ng-deep p-card.p-element{
+  display: flex;
+  justify-content: center;
+}
+
+::ng-deep .p-card.p-component{
+  width: 800px;
+}
+
+

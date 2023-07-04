@@ -41,8 +41,10 @@ label{
 
 .ContainerQr{
   margin-top: 40px;
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .bshadow {
@@ -53,6 +55,10 @@ label{
   opacity: .5;
 }
 
+::ng-deep p-messages.p-element.ng-tns-c59-0.ng-star-inserted {
+  justify-content: center;
+  display: flex;
+}
 
 
 

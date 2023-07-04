@@ -1,13 +1,3 @@
 <div class="reclamar-container" *ngIf="reclamar && promo && !linkVisited">
   <button pButton type="button" label="Canjear Promoción" styleClass="p-button-rounded " (click)="claim(promo._id)"></button>
 </div>
-
-<div class="reclamar-container" *ngIf="promo && !reclamar || promo && linkVisited">
-  <h1 class="center" *ngIf="promo.message?.msg">Muchas gracias por participar!!</h1>
-  <h1 class="center" *ngIf="promo.message?.msg">{{promo.message.msg}}</h1>
-  <h1 class="center" *ngIf="!promo.message?.msg">Ya has reclamado esta promoción</h1>
-</div>
-
-<div class="reclamar-container" *ngIf="NotexistPromo">
-  <h1 class="center">{{NotexistPromo}}</h1>
-</div>

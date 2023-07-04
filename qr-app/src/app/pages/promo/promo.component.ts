@@ -1,8 +1,8 @@
 import { Component, Inject , OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import { GQrService } from 'src/app/services/g-qr.service';
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-promo',
   templateUrl: './promo.component.html',
@@ -19,7 +19,7 @@ export class PromoComponent implements OnInit {
   NotexistPromo:any
 
   linkVisited:boolean = false
-  constructor(private gQrService:GQrService, private ActivateRoute: ActivatedRoute,
+  constructor(private gQrService:GQrService, private ActivateRoute: ActivatedRoute, private router:Router,
     @Inject(DOCUMENT) private document: Document)  { }
 
   ngOnInit(): void {
@@ -27,22 +27,70 @@ export class PromoComponent implements OnInit {
       next: ({ id }) => {
         this.idPromo = id
         this.getPromoById(this.idPromo)
+
       }
     });
-
   }
+
+
+
+
 
   getPromoById(id:string){
     this.gQrService.GetById(id).subscribe({
       next: (resp) => {
-        console.log(resp)
         this.promo = resp
-
         this.linkVisited = this.checkCookieExists(this.promo.name);
-        console.log(this.linkVisited)
+        if(this.linkVisited){
+          Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            text: "Ya has reclamado esta promoción",
+            timer: 6000,
+            timerProgressBar: true,
+            allowOutsideClick:false,
+            allowEscapeKey:false,
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
+            }
+          }).then((result) => {
+            if (result.dismiss === Swal.DismissReason.timer) {
+              this.router.navigateByUrl('/')
+            }
+
+            if (result.isConfirmed) {
+              this.router.navigateByUrl('/')
+            }
+          })
+        }
       },
       error: (error) => {
-        this.NotexistPromo = error.error.message
+        Swal.fire({
+          icon: 'warning',
+          title: 'Oops...',
+          text: error.error.message,
+          timer: 8000,
+          timerProgressBar: true,
+          allowOutsideClick:false,
+          allowEscapeKey:false,
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+          }
+        }).then((result) => {
+          console.log('pasando')
+          if (result.dismiss === Swal.DismissReason.timer) {
+            this.router.navigateByUrl('/')
+          }
+          if (result.isConfirmed) {
+            this.router.navigateByUrl('/')
+          }
+        })
       }
     })
   }
@@ -51,6 +99,33 @@ export class PromoComponent implements OnInit {
     this.gQrService.PostById(id).subscribe(resp=> {
       this.reclamar = false
       this.promo = resp
+      const {name, quantityOfScansLimit, description } = this.promo
+      Swal.fire({
+        icon: 'success',
+        title: '¡Muy bien!',
+        html:
+        `¡Has reclamado la promoción!<br/>` +
+        `Utiliza el siguiente código y dirígete hacia el establecimiento para canjear la promoción: <br/>` +
+        `Código: ${name}-${quantityOfScansLimit}<br/>` +
+        `Descripción: ${description}<br/>`+
+        `<span>Recuerda tomarle capture 😎</span>`,
+        allowOutsideClick:false,
+        allowEscapeKey:false,
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        }
+      }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.timer) {
+          this.router.navigateByUrl('/')
+        }
+
+        if (result.isConfirmed) {
+          this.router.navigateByUrl('/')
+        }
+      })
       this.setLinkVisitedCookie(this.promo.name)
     })
   }

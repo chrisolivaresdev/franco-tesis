@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
   descriptionValue:boolean = false
   quantityOfScansValue:boolean = false
   expirationValue:boolean = false
+  buttonDisabled:boolean = false
 
   constructor(private formBuilder: FormBuilder, private gQrService:GQrService) {
 
@@ -36,7 +37,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.fechaManana.setDate(this.fechaActual.getDate() + 1);
-
 
     this.formGroup.get('name')?.valueChanges.subscribe( resp => {
       if(resp.trim().length > 0) {
@@ -88,11 +88,8 @@ export class HomeComponent implements OnInit {
     this.formGroup.patchValue({ expiration: '' });
   }
 
-  resetForm(){
-    this.formGroup.patchValue({  name: '',
-      description: '',
-      quantityOfScans: '',
-      expiration: ''});
+  blockForm(){
+    this.formGroup.disable()
   }
 
   GenerarQr(){
@@ -100,7 +97,8 @@ export class HomeComponent implements OnInit {
     this.value='c'
     this.gQrService.postPromotion(body).subscribe(resp => {
       this.value = `http://localhost:4200/Promo/${resp._id}`
-      this.resetForm()
+      this.blockForm()
+      this.buttonDisabled = true
     }, (err)=> {
       console.log(err.error.message)
       Swal.fire({
